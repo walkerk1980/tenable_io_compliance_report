@@ -22,17 +22,25 @@ io = tenable_login(endpoint_address)
 
 scan_list = get_scan_list(io)
 
-for scan in scan_list:
-  print('{0} {1}'.format(scan.get('id'), scan.get('name')))
-  #print(scan.keys())
+print_scan_list(scan_list)
 
-scan_53_results = io.scans.results('53')
+scan_id = '53'
+
+scan_results = get_scan_results(io, scan_id)
+
+print()
+for key in scan_results.keys():
+  if key in ['info']: #, 'compliance']:
+    print('{0}: {1}'.format(key, scan_results.get(key)))
+    pass
+exit()
+
 
 for scan in scan_53_results.get('compliance'):
   print()
   for key in scan.keys():
     print('{0}: {1}'.format(key, scan.get(key)))
-
+    pass
 
 #print(dir(io.scans.results))
 

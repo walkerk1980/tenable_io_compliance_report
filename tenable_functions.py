@@ -103,14 +103,25 @@ def get_asset_list_ips(io, asset_list_id):
   return list_details.get('typeFields').get('definedIPs')
 
 def get_scan_list(io):
-  return json.loads(json.dumps(io.scans.list()))
+  return io.scans.list()
 
-def get_scan_analysis(io, scan_id):
-  return io.analysis.scan(scan_id)
+def print_scan_list(scan_list):
+  for scan in scan_list:
+    print('{0} {1}'.format(scan.get('id'), scan.get('name')))
+
+def get_scan_results(io, scan_id):
+  return io.scans.results(scan_id)
 
 def get_scan_details(io, scan_id):
   return  io.scans.details(scan_id)
 
+def get_latest_scan_history(io, scan_id):
+  return sorted([(x) for x in io.scans.history(scan_id)], key=lambda k: k['time_end'])[-1]
+
+def get_scan_info(io, scan_id):
+  return io.scans.info(scan_id, get_latest_scan_history(io, scan_id).get('scan_uuid'))
+
 def find_ip_in_scan_results(ip):
   pass
+
 

@@ -15,6 +15,11 @@ def setup_mongo(mongo_host, mongo_port):
   scans_col = db.scans
   return(scans_col)
 
+def insert_scan_result_into_db(scan_result):
+  #[ ( devices_col.insert_one(x) ) for x in devices_dict.get('devices') if not devices_col.find_one({"IP Address": x.get('IP Address')}) ]
+  print('Devices in collection: ' + str(devices_col.count()))
+
+
 def insert_devices_into_db(devices_col, devices_dict):
   [ ( devices_col.insert_one(x) ) for x in devices_dict.get('devices') if not devices_col.find_one({"IP Address": x.get('IP Address')}) ]
   print('Devices in collection: ' + str(devices_col.count()))
